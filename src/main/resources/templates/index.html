@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="htpp//www.thymeleaf.org">
+    <head th:replace= "/fragments/head :: head"> 
+         
+        
+          
+</head>
+    <body>
+         <div>  
+      <div th:if ="${exito!=null}" class="card text-white bg-success mb-3 mensajeExito">
+              <div class="card-body" >  
+                  <h5 class="card-title" >Exito! </h5 >       
+                 <p class="card-text" th:text="${exito}" ></p > 
+                 </div >  
+                    
+                     </div >  
+        <div>
+            
+             <h1>!!Bienvenido a Torneo de Latas </h1>
+             <h2>Impacto ambiental del aluminio </h2>
+             <p><strong>La contaminación que genera la industria del aluminio es preocupante porque arroja millones de
+                 toneladas al año de gases de efecto invernadero, como el dióxido de carbono, y gases que están 
+                 presentes también en la lluvia ácida como el óxido de azufre y el óxido de nitrógeno.</strong></p>
+             <h2> ¿Qué pasa si reciclamos latas de aluminio?</h2>
+             <p><strong>El reciclaje del aluminio ayuda a utilizar menos recursos tanto de materias primas como de energía,
+                 ya que la producción del mineral primario es mucho menos sostenible que su reciclaje.
+                 Reutilizar una tonelada de aluminio permite ahorrar 14,630 kw por hora y 91,200 litros de agua.
+                 Sin embargo, la única solución para evitar el agotamiento de este recurso es lograr una tasa
+                 de reciclaje global del 100%.</strong></p>
+            <h2>¿Cuántas veces se puede reciclar una lata de aluminio? </h2>
+        <p><strong>El aluminio puede reciclarse infinitas veces sin perder sus propiedades.
+            No cortemos el ciclo, tomemonos el tiempo de reciclar aluminio.</strong></p>
+        <p><strong>En torneo de latas buscamos hacer el mayor aporte  posible a esta causa colaborando en el reciclado y ademas 
+        estimulando a las personas a traves de pozos acumulados que permitan recibir importantes premios en efectivo 
+        a las personas que obtengan mejor puntaje al cerrar cada mes.</strong> </p>
+         </div >  
+        
+        <div>
+            <a href="/Iniciosesion" class="button btn btn-dark" >Ingresar</a>
+             <p><strong>Si no esta registrado registrese aqui</strong></p>
+             <a href="/Basesycondiciones"  class="button btn btn-dark">Registrarse</a>
+              </div> 
+       
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
+        crossorigin="anonymous"></script>
+    </body>
+</html>
