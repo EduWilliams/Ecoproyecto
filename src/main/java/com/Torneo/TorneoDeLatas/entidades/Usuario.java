@@ -22,6 +22,8 @@ public class Usuario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    
+    
     private String email;
     @Column(name = "Dni")
     private Integer dni;

@@ -5,6 +5,8 @@ import com.Torneo.TorneoDeLatas.Excepciones.Miexception;
 import com.Torneo.TorneoDeLatas.Servicios.usuarioServicio;
 import com.Torneo.TorneoDeLatas.entidades.Usuario;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,10 +49,10 @@ public class PortalControlador {
 
     @PostMapping("/registrar")
 
-    public String registrar(String id,@RequestParam String email, @RequestParam(required = false) Integer dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String password, @RequestParam String password2, ModelMap modelo, MultipartFile archivo) {
+    public String registrar(String id, @RequestParam String email, @RequestParam(required = false) Integer dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String password, @RequestParam String password2, ModelMap modelo, MultipartFile archivo) {
 
         try {
-            usuarioservicio.crearUsuario(archivo,email, dni, nombre, apellido, password, password2);
+            usuarioservicio.crearUsuario(archivo, email, dni, nombre, apellido, password, password2);
             modelo.put("exito", "Usuario cargado exitosamente!!!");
         } catch (Miexception ex) {
             modelo.put("error", ex.getMessage());
@@ -75,7 +78,7 @@ public class PortalControlador {
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     @GetMapping("/Central")
     public String Central(HttpSession Session) {
-        Usuario logueado=(Usuario) Session.getAttribute("usuariosession");
+        Usuario logueado = (Usuario) Session.getAttribute("usuariosession");
         return "Central.html";
     }
 
@@ -90,13 +93,13 @@ public class PortalControlador {
     }
 
     @GetMapping("/Modificar")
-    public String Modificar() {
-
+    public String Modificar(ModelMap modelo) {
+      //  modelo.put("usuario", usuarioservicio.getOne(id));
         return "usuario_modificar.html";
     }
 
     @PostMapping("/Modifica")
-    public String Modificar( String id,@RequestParam String email2, @RequestParam(required = false) Integer dni2, @RequestParam String nombre2, @RequestParam String apellido2, @RequestParam String password3, @RequestParam String password4, ModelMap modelo,MultipartFile archivo) {
+    public String Modifica( @RequestParam String email2, @RequestParam(required = false) Integer dni2, @RequestParam String nombre2, @RequestParam String apellido2, @RequestParam String password3, @RequestParam String password4, ModelMap modelo, MultipartFile archivo) {
         List<Usuario> usuarios = usuarioservicio.listarUsuario();
 
         modelo.addAttribute("usuarios", usuarios);
@@ -105,7 +108,8 @@ public class PortalControlador {
 
             if (email2.equals(usuario.getEmail())) {
                 try {
-                    usuarioservicio.modificarUsuario(archivo,id,email2, dni2, nombre2, apellido2, password3, password4);
+                    System.out.println(email2+" "+" "+usuario.getEmail());
+                    usuarioservicio.modificarUsuario(archivo, email2, dni2, nombre2, apellido2, password3, password4);
                 } catch (Miexception ex) {
                     modelo.put("error", ex.getMessage());
                     return "usuario_modificar.html";
@@ -202,4 +206,25 @@ public class PortalControlador {
         }
         return "Consulta.html";
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @GetMapping("/Perfil")
+    public String Perfil(ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usuario);
+
+        return "usuario_modificar.html";
+    }
+     @GetMapping("/ecoideas")
+    public String ecoideas() {
+
+        return "ecoideas.html";
+    }
+    
+    
+    
+    
 }
+ 
+    
+

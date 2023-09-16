@@ -18,8 +18,32 @@
       margin-bottom: 16px;
       
   }
-   .form-register h4
+    .datos
    {
+         padding: 10px;
+      margin:100px;
+      margin-top: 50px;
+      
+   }
+   .gris 
+   {
+       color: white;
+       height: 20%;
+       width: 50%;
+       background-color: gray;
        
-       
+   }
+  
+   .Marron
+   {
+        color: white;
+       height: 20%;
+       width: 50%;
+       background-color: brown;
+   }
+   .verde{
+        color: white;
+        height: 20%;
+       width: 50%;
+       background-color: greenyellow;
    }

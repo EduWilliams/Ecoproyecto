@@ -1,31 +1,75 @@
 
 <html xmlns:th="htpp//www.thymeleaf.org" xmlns:sec="htpp//www.thymeleaf.org/extras/spring-security">
-    <head th:replace= "/fragments/head :: head">  </head>
+    <head th:replace= "/fragments/head :: head"> 
+
+
+
+    </head>
     <body>
-        <div>
-            <div>
-                <h1 class="button btn btn-success" th:if="${session.usuariosession!=null}" th:text="'Bienvenido!!!! '+${session.usuariosession.nombre}"> </h1>
+    <headers>  
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="button btn btn-success" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/paneles" sec:authorize="hasRole('ADMIN')">Usuarios</a>
+                        </li> 
+                        <a class="nav-link" href="/ecoideas">Ecoideas</a>
+                        </li>
+                        <li>
+                            <a class="nav-link "  href="/Listartodos" role="button" sec:authorize="hasRole('ADMIN')" >Listar Usuarios </a>
+                        </li>
+                        <li>
+                            <a class="nav-link "  href="/Modificar" role="button"  >Modificar Datos </a>
+                        </li>
+
+
+                        <li><a class="nav-link" href="/logout">Salir</a></li>
+
+                    </ul>
                 </div>
-            <div>
-                <h5 class="puntos"  th:text="'Tus Puntos '+${session.usuariosession.ecopuntos}" > </h5>
             </div>
-            <div>
-                <a href="/paneles"  sec:authorize="hasRole('ADMIN')"class="button btn btn-success">Usuarios</a>
-            </div>
-            <div>
-                <a href="/Listartodos"  sec:authorize="hasRole('ADMIN')"class="button btn btn-success"> Listar Usuarios</a>
-            </div>
-            
-            <div><a href="/Modificar" class="button btn btn-success" >Modificar Datos</a>  </div>
-            <div>
-                <a href="/logout" class="button btn btn-success" >Salir</a>
-            </div>
-            
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
-        crossorigin="anonymous"></script>
+        </nav>
+    </headers>
+    <i class="fa-solid fa-bars"></i>
+
+    <img class="imagen">
+    <div>
+
+        <h1 class="button btn btn-success" th:if="${session.usuariosession!=null}" th:text="'Bienvenido!!!! '+${session.usuariosession.nombre}"> </h1>
+    </div>
+    <div>
+        <h5 class="puntos"  th:text="'Tus Puntos '+${session.usuariosession.ecopuntos}" > </h5>
+    </div>
+     <div>
+    <p> Desde que surgió la vida en la Tierra, todos los organismos, incluyendo a los seres humanos,
+        han dependido de las cosas que existen libremente en la naturaleza para poder sobrevivir.
+        Estas cosas tan esenciales incluyen elementos como el agua, la luz del Sol, los suelos, los bosques, 
+        las plantas, los animales, etc. También se les ha dado uso a otras cosas presentes en la naturaleza
+        para nuestro beneficio, por ejemplo, a los materiales para fabricar herramientas, ropa, medicinas y en general,
+        cualquier otra cosa que contribuya a nuestro desarrollo.</p>
+        <h1>Consecuencias de la sobreexplotación de los recursos naturales</h1>
+<p>Comentábamos anteriormente que los recursos no renovables tenían algunas desventajas y están asociadas
+    a su uso excesivo o sobreexplotación. La más obvia es que son recursos que se agotarán y que, por tanto,
+    tendremos que reemplazar antes de que ello suceda para que la sociedad no se paralice. La otra desventaja
+    es que hay un gran riesgo provocado por su combustión, con la que se generan gases y partículas que incrementan 
+    la polución (problema que afecta directamente en nuestra calidad de vida). Pero lo más significativo es la gran
+    cantidad de CO2 que se emite a la atmósfera en dicha combustión, contribuyendo al incremento del efecto 
+    invernadero y al cambio climático.
+ </p>
+ </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
+    crossorigin="anonymous"></script>
 
 
-    </body>
+</body>
 </html>

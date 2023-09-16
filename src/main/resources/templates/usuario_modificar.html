@@ -16,6 +16,7 @@
         <div>Datos de Usuario</div>
          <form  class="formulario" th:action="@{/Modifica}" method="POST" > 
              
+             <input  hidden th:value="${id}" name="id"> 
               <div>
               <div >  
                 <input  class="controls" type="email" name=email2 placeholder="Ingrese el mail"> 

@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,7 @@ public class usuarioServicio implements UserDetailsService {
     private ImagenServicio imagenservicio;
 
     @Transactional
-    public void crearUsuario(MultipartFile archivo,String email, Integer dni, String nombre, String apellido, String password, String password2) throws Miexception {
+    public void crearUsuario(MultipartFile archivo, String email, Integer dni, String nombre, String apellido, String password, String password2) throws Miexception {
 
         validar(email, dni, nombre, apellido, password, password2);
 
@@ -49,9 +50,9 @@ public class usuarioServicio implements UserDetailsService {
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setAlta(new Date());
         usuario.setRol(Rol.USER);
-        Imagen imagen=imagenservicio.guardar(archivo);
+        Imagen imagen = imagenservicio.guardar(archivo);
         usuario.setImagen(imagen);
-        usuario.setId(id);
+
         usuariorepositorio.save(usuario);
     }
 
@@ -64,61 +65,64 @@ public class usuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarUsuario(MultipartFile archivo, String id,String email, Integer dni, String nombre, String apellido, String password, String password2) throws Miexception {
-        validar(email, dni, nombre, apellido, password, password2);
-        Optional<Usuario> respuesta = usuariorepositorio.findById(email);
+    public void modificarUsuario( MultipartFile archivo, String email, Integer dni, String nombre, String apellido, String password, String password2) throws Miexception {
+     //   validar(email, dni, nombre, apellido, password, password2);
+        
 
-        if (respuesta.isPresent()) {
+        System.out.println(email+" "+" "+nombre);
 
-            Usuario usuario = respuesta.get();
+             Usuario usuario=usuariorepositorio.buscarporemail(email);
             usuario.setPassword(password);
             usuario.setApellido(apellido);
             usuario.setNombre(nombre);
             usuario.setDni(dni);
-            
-            String idImagen=null;
-            if (usuario.getImagen()!=null) {
-                idImagen=usuario.getImagen().getId();
-                Imagen imagen=imagenservicio.actualizar(archivo, idImagen);
+
+            String idImagen = null;
+            if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
+                Imagen imagen = imagenservicio.actualizar(archivo, idImagen);
                 usuario.setImagen(imagen);
             }
 
             usuariorepositorio.save(usuario);
-        }
+        
 
     }
 
     @Transactional
-    public void modificarUsuariopuntos(String email, Double ecop) {
+    public void modificarUsuariopuntos( String email, Double ecop) {
 
-        Optional<Usuario> respuesta = usuariorepositorio.findById(email);
+        
 
-        if (respuesta.isPresent()) {
+         Usuario usuario=usuariorepositorio.buscarporemail(email);
             if (ecop != null) {
 
-                Usuario usuario = respuesta.get();
+                
                 usuario.setEcopuntos((ecop * 400) + usuario.getEcopuntos());
                 System.out.println("Se sumaron " + (ecop * 700));
 
                 usuariorepositorio.save(usuario);
             }
         }
-    }
+    
 
     @Transactional
-    public void modificarUsuariopuntosU(String email, Double ecop2, Double env) {
+    public void modificarUsuariopuntosU( String email, Double ecop2, Double env) {
 
-        Optional<Usuario> respuesta = usuariorepositorio.findById(email);
+       Usuario usuario=usuariorepositorio.buscarporemail(email);
 
-        if (respuesta.isPresent()) {
+        
 
+            if (ecop2 != null) {
+                
+                usuario.setEcopuntos((ecop2 * (env / 100)) + usuario.getEcopuntos());
+                usuariorepositorio.save(usuario);
+            }
         }
-        if (ecop2 != null) {
-            Usuario usuario = respuesta.get();
-            usuario.setEcopuntos((ecop2 * (env / 100)) + usuario.getEcopuntos());
-            usuariorepositorio.save(usuario);
-        }
+    
 
+    public Usuario getOne(String id) {
+        return usuariorepositorio.getOne(id);
     }
 
     private void validar(String email, Integer dni, String nombre, String apellido, String password, String password2) throws Miexception {

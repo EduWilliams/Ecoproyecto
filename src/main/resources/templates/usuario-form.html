@@ -30,7 +30,7 @@
                   <input  class="controls" type="email" name=email placeholder="Correo Electronico" th:value="${email}"> 
               </div> 
               <div >  
-             <input class="controls" type="number" name=dni placeholder="dni del usuario" th:value="${dni}"> 
+                  <input class="controls" type="number" name=dni placeholder="dni del usuario" th:value="${dni}"   max="99999999" min="22222222"> 
               </div> 
            
               <div >  
@@ -43,10 +43,10 @@
                   <input  class="controls" type="file" name=archivo> 
               </div> 
              <div >  
-              <input class="controls" type="password" name=password placeholder="Ingrese una clave" th:value="${password}"> 
+                 <input class="controls" type="password" name=password placeholder="Ingrese una clave"   th:value="${password}" maxlength="6"> 
               </div> 
              <div >  
-              <input class="controls" type="password" name=password2 placeholder="Ingrese nuevamente la clave" th:value="${password2}"> 
+              <input class="controls" type="password" name=password2 placeholder="Ingrese nuevamente la clave"  th:value="${password2}" maxlenght="6"> 
               </div> 
              <div ><p>Estoy de acuerdo con  <a href="/Basesycondiciones" class="button btn btn-dark" >Bases y condiciones</a></p> </div> 
              
